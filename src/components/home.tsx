@@ -198,7 +198,7 @@ const SearchIcon: React.FunctionComponent<React.SVGProps<SVGSVGElement>> = ({ ..
 );
 
 
-const CurvedlineChart:  React.FunctionComponent<React.SVGProps<SVGSVGElement>> = ({ ...props }) => (
+const CurvedlineChart = ({ ...props }) => (
   <div {...props}>
     <ResponsiveLine
       data={[
