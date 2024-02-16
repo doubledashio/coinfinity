@@ -3,8 +3,16 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { ResponsiveLine } from "@nivo/line"
+import { useContext } from "react";
+import { CoinPrices, CryptoContext } from "@/providers/CryptoProvider";
 
 export function Home() {
+  const coinPrices = useContext(CryptoContext) as CoinPrices;
+
+  const formatCurrency = (value?: number): string => {
+    return value?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') || '-.--';
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
 <header className="flex items-center h-16 px-4 border-b dark:border-gray-800 md:px-6">
@@ -45,7 +53,7 @@ export function Home() {
               <CurrencyIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
+              <div className="text-2xl font-bold">${ formatCurrency(coinPrices['bitcoin']?.usd) }</div>
               <p className="text-xs text-gray-500 dark:text-gray-400">+20.1% from last month</p>
               <CurvedlineChart className="w-full aspect-[4/3]" />
             </CardContent>
@@ -60,7 +68,7 @@ export function Home() {
               <CurrencyIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$3,450.00</div>
+              <div className="text-2xl font-bold">${ formatCurrency(coinPrices['ethereum']?.usd) }</div>
               <p className="text-xs text-gray-500 dark:text-gray-400">+180.1% from last month</p>
               <CurvedlineChart className="w-full aspect-[4/3]" />
             </CardContent>
@@ -69,13 +77,13 @@ export function Home() {
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">
                 <Link className="hover:underline" href="#">
-                  Ripple
+                  Solana
                 </Link>
               </CardTitle>
               <CurrencyIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$1.34</div>
+              <div className="text-2xl font-bold">${ formatCurrency(coinPrices['solana']?.usd) }</div>
               <p className="text-xs text-gray-500 dark:text-gray-400">+19% from last month</p>
               <CurvedlineChart className="w-full aspect-[4/3]" />
             </CardContent>
@@ -84,13 +92,13 @@ export function Home() {
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">
                 <Link className="hover:underline" href="#">
-                  Litecoin
+                  Cardano
                 </Link>
               </CardTitle>
               <CurrencyIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$200.57</div>
+              <div className="text-2xl font-bold">${ formatCurrency(coinPrices['cardano']?.usd) }</div>
               <p className="text-xs text-gray-500 dark:text-gray-400">+201 since last hour</p>
               <CurvedlineChart className="w-full aspect-[4/3]" />
             </CardContent>

@@ -1,8 +1,10 @@
-import Image from "next/image";
 import { Home } from "@/components/home";
+import { CryptoProvider } from "@/providers/CryptoProvider";
 
 export default function Index() {
   return (
-    <Home />
+    <CryptoProvider>
+      <Home />
+    </CryptoProvider>
   );
 }
