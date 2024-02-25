@@ -4,10 +4,12 @@ import { Input } from "@/components/ui/input"
 import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
 import { ResponsiveLine } from "@nivo/line"
 import { useContext } from "react";
-import { CoinPrices, CryptoContext } from "@/providers/CryptoProvider";
+import { CoinPrices, PriceContext } from "@/providers/PriceProvider";
+import { Coin } from "@/providers/CoinProvider";
 
 export function Home() {
-  const coinPrices = useContext(CryptoContext) as CoinPrices;
+  const coinList = useContext(PriceContext) as Coin[];
+  const {coinPrices, setCoinList } = useContext(PriceContext) as CoinPrices;
 
   const formatCurrency = (value?: Number): String => {
     return value?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') || '-.--';

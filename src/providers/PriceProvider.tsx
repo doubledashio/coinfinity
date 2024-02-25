@@ -2,7 +2,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-export const CryptoContext = createContext({});
+export const PriceContext = createContext({});
 
 export type CoinPrices = {
   [key: string]: {
@@ -10,8 +10,9 @@ export type CoinPrices = {
   },
 };
 
-export const CryptoProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+export const PriceProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [coinPrices, setCoinPrices] = useState<CoinPrices>({});
+  const [coinList, setCoinList] = useState<string[]>(['bitcoin', 'ethereum', 'solana', 'arbitrum']);
 
   useEffect(() => {
     const fetchCoinPrices = async () => {
@@ -19,7 +20,7 @@ export const CryptoProvider: React.FC<{children: React.ReactNode}> = ({ children
         const response = await axios.get('https://api.coingecko.com/api/v3/simple/price', {
           params: {
             vs_currencies: 'usd',
-            ids: 'bitcoin,ethereum,solana,cardano',
+            ids: coinList.join(','),
           },
         });
         setCoinPrices(response.data);
@@ -32,8 +33,8 @@ export const CryptoProvider: React.FC<{children: React.ReactNode}> = ({ children
   }, []);
 
   return (
-    <CryptoContext.Provider value={coinPrices}>
+    <PriceContext.Provider value={{coinPrices, setCoinList}}>
       {children}
-    </CryptoContext.Provider>
+    </PriceContext.Provider>
   );
 };

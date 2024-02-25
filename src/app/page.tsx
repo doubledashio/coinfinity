@@ -1,10 +1,13 @@
 import { Home } from "@/components/home";
-import { CryptoProvider } from "@/providers/CryptoProvider";
+import { CoinProvider } from "@/providers/CoinProvider";
+import { PriceProvider } from "@/providers/PriceProvider";
 
 export default function Index() {
   return (
-    <CryptoProvider>
-      <Home />
-    </CryptoProvider>
+    <CoinProvider>
+      <PriceProvider>
+        <Home />
+      </PriceProvider>
+    </CoinProvider>
   );
 }
